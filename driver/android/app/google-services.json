@@ -1,0 +1,134 @@
+{
+  "project_info": {
+    "project_number": "9816334922",
+    "project_id": "goodfod-969f8",
+    "storage_bucket": "goodfod-969f8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9816334922:android:6aa7338bb911cbdd06fcb3",
+        "android_client_info": {
+          "package_name": "com.go4food.customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9816334922-lt529ejufea1ffg42gt1bugpc1fl23er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjFowJEBtCqCAENCNCZYKAHtRdY7xyKxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9816334922-lt529ejufea1ffg42gt1bugpc1fl23er.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9816334922:android:ac512428a13a557906fcb3",
+        "android_client_info": {
+          "package_name": "com.go4food.customers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9816334922-p23o3i8qc5p6gjojh5tg650426gjqi5d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.go4food.customers",
+            "certificate_hash": "88bb1e05846a6a771fa929c70446e6fadc96db6f"
+          }
+        },
+        {
+          "client_id": "9816334922-lt529ejufea1ffg42gt1bugpc1fl23er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjFowJEBtCqCAENCNCZYKAHtRdY7xyKxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9816334922-lt529ejufea1ffg42gt1bugpc1fl23er.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9816334922:android:ec31d24cb22fb5dd06fcb3",
+        "android_client_info": {
+          "package_name": "com.go4food.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9816334922-lt529ejufea1ffg42gt1bugpc1fl23er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjFowJEBtCqCAENCNCZYKAHtRdY7xyKxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9816334922-lt529ejufea1ffg42gt1bugpc1fl23er.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9816334922:android:be33bf093d50b8ae06fcb3",
+        "android_client_info": {
+          "package_name": "com.go4food.restaurant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9816334922-lt529ejufea1ffg42gt1bugpc1fl23er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjFowJEBtCqCAENCNCZYKAHtRdY7xyKxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9816334922-lt529ejufea1ffg42gt1bugpc1fl23er.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

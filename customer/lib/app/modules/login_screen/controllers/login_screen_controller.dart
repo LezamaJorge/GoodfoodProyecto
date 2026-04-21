@@ -235,7 +235,7 @@ class LoginScreenController extends GetxController {
 
   Future<void> initializeGoogleSignIn() async {
     await googleSignIn.initialize(
-      serverClientId: '339012005849-mt8hkep8nt1s0l9djgfp4lbqgol4mrei.apps.googleusercontent.com',
+      serverClientId: '9816334922-lt529ejufea1ffg42gt1bugpc1fl23er.apps.googleusercontent.com',
     );
   }
 

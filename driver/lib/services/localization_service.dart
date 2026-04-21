@@ -6,7 +6,7 @@ import 'package:driver/lang/app_hi.dart';
 import 'package:driver/lang/app_es.dart';
 
 class LocalizationService extends Translations {
-  static const locale = Locale('en', 'US');
+  static const locale = Locale('es');
 
   static final locales = [
     const Locale('en'),

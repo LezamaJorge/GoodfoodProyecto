@@ -207,24 +207,9 @@ class AddRestaurantScreenController extends GetxController {
 
   String getWeekDay(int index) {
     try {
-      switch (index) {
-        case 0:
-          return "Sunday".tr;
-        case 1:
-          return "Monday".tr;
-        case 2:
-          return "Tuesday".tr;
-        case 3:
-          return "Wednesday".tr;
-        case 4:
-          return "Thursday".tr;
-        case 5:
-          return "Friday".tr;
-        case 6:
-          return "Saturday".tr;
-        default:
-          return "";
-      }
+      // Siempre retornar en inglés para consistencia en Firestore
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      return index >= 0 && index < days.length ? days[index] : '';
     } catch (e, stack) {
       developer.log("Error getting week day:", error: e, stackTrace: stack);
       return "";

@@ -7,7 +7,7 @@ import 'package:restaurant/lang/app_es.dart';
 
 class LocalizationService extends Translations {
   // Default locale
-  static const locale = Locale('en', 'US');
+  static const locale = Locale('es');
 
   static final locales = [
     const Locale('en'),

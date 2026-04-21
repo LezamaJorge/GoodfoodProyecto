@@ -1,0 +1,1 @@
+ C:\\Users\\georg\\OneDrive\\Desktop\\ProyectoTrabajo\\Go4Food-3.1\\restaurant\\.dart_tool\\flutter_build\\d5c368fb8cff60261229abe2cb0a2b12\\dart_build_result.json: 

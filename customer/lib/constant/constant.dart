@@ -772,11 +772,32 @@ class Constant {
     }
   }
 
+  /// Mapa de nombres de días en español → inglés
+  static const Map<String, String> _dayNameEs2En = {
+    'domingo': 'Sunday',
+    'lunes': 'Monday',
+    'martes': 'Tuesday',
+    'miércoles': 'Wednesday',
+    'miercoles': 'Wednesday',
+    'jueves': 'Thursday',
+    'viernes': 'Friday',
+    'sábado': 'Saturday',
+    'sabado': 'Saturday',
+  };
+
+  /// Normaliza un nombre de día al equivalente en inglés.
+  /// Si ya está en inglés, lo retorna tal cual (capitalized).
+  static String _normalizeDayName(String day) {
+    final lower = day.toLowerCase().trim();
+    return _dayNameEs2En[lower] ?? day;
+  }
+
   static bool isRestaurantOpen(VendorModel restaurantModel) {
     try {
       final DateTime now = DateTime.now();
-      final String today = DateFormat('EEEE').format(now);
-      final String yesterday = DateFormat('EEEE').format(now.subtract(const Duration(days: 1)));
+      // Siempre obtener el día en inglés para comparación consistente
+      final String today = DateFormat('EEEE', 'en_US').format(now);
+      final String yesterday = DateFormat('EEEE', 'en_US').format(now.subtract(const Duration(days: 1)));
 
       if (_isOpenForDay(restaurantModel, today, now, isYesterday: false)) {
         return true;
@@ -789,6 +810,7 @@ class Constant {
     }
   }
 
+
   static bool _isOpenForDay(
     VendorModel restaurantModel,
     String day,
@@ -797,7 +819,8 @@ class Constant {
   }) {
     try {
       final hours = restaurantModel.openingHoursList?.firstWhere(
-        (h) => h.day == day && h.isOpen == true,
+        // Normalizar ambos días a inglés antes de comparar
+        (h) => _normalizeDayName(h.day ?? '') == day && h.isOpen == true,
         orElse: () => OpeningHoursModel(),
       );
 
@@ -808,8 +831,10 @@ class Constant {
 
       if (openStr.isEmpty || closeStr.isEmpty) return false;
 
-      final DateTime openTime = DateFormat('h:mm a').parse(openStr);
-      final DateTime closeTime = DateFormat('h:mm a').parse(closeStr);
+      final DateTime? openTime = _parseTimeString(openStr);
+      final DateTime? closeTime = _parseTimeString(closeStr);
+
+      if (openTime == null || closeTime == null) return false;
 
       final DateTime baseDate = isYesterday ? now.subtract(const Duration(days: 1)) : now;
 
@@ -839,6 +864,32 @@ class Constant {
     } catch (e) {
       developer.log("Error checking restaurant hours for $day: ", error: e);
       return false;
+    }
+  }
+
+  /// Parsea strings de hora en múltiples formatos:
+  /// "8:00 AM", "8:00 am", "8:00 a.m.", "8:00 a. m.", "8:00 PM", etc.
+  static DateTime? _parseTimeString(String timeStr) {
+    try {
+      // Normalizar: quitar puntos, espacios extra y convertir a mayúsculas
+      String normalized = timeStr
+          .replaceAll('.', '')   // Quitar puntos (a.m. -> am)
+          .replaceAll('\u00a0', ' ') // Reemplazar espacios no separables
+          .replaceAll(RegExp(r'\s+'), ' ') // Colapsar espacios múltiples
+          .trim()
+          .toUpperCase();       // Convertir a mayúsculas (am -> AM)
+
+      // Intentar parsear con formato estándar
+      final formats = ['h:mm a', 'hh:mm a', 'H:mm', 'HH:mm'];
+      for (final fmt in formats) {
+        try {
+          return DateFormat(fmt).parse(normalized);
+        } catch (_) {}
+      }
+      return null;
+    } catch (e) {
+      developer.log("Error parsing time string '$timeStr': ", error: e);
+      return null;
     }
   }
 

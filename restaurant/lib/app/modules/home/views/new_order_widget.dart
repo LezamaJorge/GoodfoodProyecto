@@ -253,10 +253,7 @@ class NewOrderWidget extends StatelessWidget {
                                             if (Constant.isSelfDelivery == true && Constant.vendorModel!.isSelfDelivery == true) {
                                               Get.to(DriverOrderAssignView(), arguments: {'OrderModel': pendingOrder, 'preparationTime': controller.minutes.value});
                                             } else {
-                                              pendingOrder.orderStatus = OrderStatus.orderAccepted;
-                                              pendingOrder.foodIsReadyToPickup = false;
-                                              pendingOrder.preparationTime = controller.minutes.value.toString();
-                                              controller.updateOrder(pendingOrder);
+                                              controller.assignIndependentDriver(pendingOrder);
 
                                               UserModel? userModel = await FireStoreUtils.getCustomerUserProfile(pendingOrder.customerId.toString());
                                               Map<String, dynamic> payLoad = <String, dynamic>{"orderId": pendingOrder.id};

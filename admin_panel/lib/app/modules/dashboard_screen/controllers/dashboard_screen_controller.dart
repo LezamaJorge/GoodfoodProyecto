@@ -101,7 +101,17 @@ class DashboardScreenController extends GetxController {
     await getRecentUsersLastWeek();
     for (var order in orderList) {
       if (order.orderStatus == OrderStatus.orderComplete) {
-        totalEarnings.value += Constant.calculateFinalAmount(order);
+        double subTotal = double.parse(order.subTotal ?? '0.0');
+        double discount = double.parse(order.discount ?? '0.0');
+        double commissionBaseAmount = subTotal;
+        if (order.coupon != null && order.coupon!.isVendorOffer == true) {
+          commissionBaseAmount = subTotal - discount;
+        }
+
+        totalEarnings.value += Constant.calculateAdminCommission(
+          amount: commissionBaseAmount.toStringAsFixed(2),
+          adminCommission: order.adminCommission,
+        );
       }
     }
     isLoadingBookingChart.value = false;

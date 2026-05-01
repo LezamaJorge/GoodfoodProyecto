@@ -61,8 +61,15 @@ class PaypalPaymentState extends State<PaypalPayment> {
         controller!.clearCache();
       }
     } catch (e) {
-      Get.back();
-
+      Get.snackbar("PayPal Error", e.toString(), 
+        snackPosition: SnackPosition.BOTTOM, 
+        backgroundColor: Colors.red, 
+        colorText: Colors.white,
+        duration: const Duration(seconds: 5)
+      );
+      Future.delayed(const Duration(seconds: 2), () {
+        Get.back();
+      });
     }
   }
 

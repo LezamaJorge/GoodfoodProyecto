@@ -261,16 +261,8 @@ class HomeScreenView extends StatelessWidget {
                                                       controller.driverStatus.value = value;
                                                       await controller.updateDriverIsOnline();
                                                     }
-                                                    double minimumAmountToDeposit = double.tryParse(Constant.minimumAmountToDeposit) ?? 0;
-                                                    double walletAmount = double.tryParse(Constant.driverUserModel!.walletAmount!) ?? 0;
-
-                                                    if (walletAmount >= minimumAmountToDeposit) {
-                                                      controller.driverStatus.value = value;
-                                                      controller.updateDriverIsOnline();
-                                                    } else {
-                                                      ShowToastDialog.showToast(
-                                                          "'Not enough balance in your wallet. Minimum amount required is not met. \$${minimumAmountToDeposit.toStringAsFixed(2)}.'");
-                                                    }
+                                                    controller.driverStatus.value = value;
+                                                    controller.updateDriverIsOnline();
                                                   } else {
                                                     ShowToastDialog.showToast("Your Account is not verify".tr);
                                                   }
@@ -288,12 +280,7 @@ class HomeScreenView extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          TextCustom(
-                                            maxLine: 2,
-                                            title:
-                                                (double.tryParse(Constant.driverUserModel!.walletAmount.toString()) ?? -1) == 0 ? "Your wallet balance is ₹0. Please add money to accept orders." : "",
-                                            color: AppThemeData.danger100,
-                                          )
+                                          const SizedBox(),
                                         ],
                                       ),
                                     )),

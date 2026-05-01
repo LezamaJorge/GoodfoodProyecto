@@ -244,6 +244,17 @@ class MyWalletController extends GetxController {
   // ::::::::::::::::::::::::::::::::::::::::::::PayPal::::::::::::::::::::::::::::::::::::::::::::::::::::
   Future<void> payPalPayment({required String amount}) async {
     ShowToastDialog.closeLoader();
+
+    // Conversión automática para Honduras (LPS a USD)
+    String paypalAmount = amount;
+    String paypalCurrency = currencyCode.value;
+
+    if (paypalCurrency == "LPS" || paypalCurrency == "HNL") {
+      double amountInUsd = double.parse(amount) / 26.62;
+      paypalAmount = amountInUsd.toStringAsFixed(2);
+      paypalCurrency = "USD";
+    }
+
     await Get.to(() => PaypalPayment(
           onFinish: (result) {
             if (result != null) {
@@ -256,8 +267,8 @@ class MyWalletController extends GetxController {
               ShowToastDialog.showToast("Payment was canceled or failed.".tr);
             }
           },
-          price: amount,
-          currencyCode: currencyCode.value,
+          price: paypalAmount,
+          currencyCode: paypalCurrency,
           title: "Add Money".tr,
           description: "Add Balance in Wallet",
         ));

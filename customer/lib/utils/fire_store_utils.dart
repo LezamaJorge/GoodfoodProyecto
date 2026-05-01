@@ -731,7 +731,6 @@ class FireStoreUtils {
     return fireStore
         .collection(CollectionName.orders)
         .where("customerId", isEqualTo: FireStoreUtils.getCurrentUid())
-        .orderBy("createdAt", descending: true)
         .snapshots()
         .map((snapshot) {
       List<OrderModel> pendingOrders = [];

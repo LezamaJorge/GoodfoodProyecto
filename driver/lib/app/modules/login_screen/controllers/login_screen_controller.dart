@@ -205,6 +205,7 @@ class LoginScreenController extends GetxController {
             if (driverModel != null) {
               if (driverModel.active == true) {
                 Constant.isLogin = await FireStoreUtils.isLogin();
+                Get.offAll(() => const HomeScreenView());
               } else {
                 Get.offAll(() => AccountDisabledScreen());
               }
@@ -321,6 +322,7 @@ class LoginScreenController extends GetxController {
               if (driverModel.active == true) {
                 Constant.isLogin = await FireStoreUtils.isLogin();
                 ShowToastDialog.closeLoader();
+                Get.offAll(() => const HomeScreenView());
               } else {
                 Get.offAll(() => AccountDisabledScreen());
               }

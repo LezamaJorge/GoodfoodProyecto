@@ -176,9 +176,9 @@ class PaymentMethodView extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                          visible: controller.paymentModel.value.razorpay != null && controller.paymentModel.value.razorpay!.isActive == true,
+                          visible: controller.paymentModel.value.cash != null && controller.paymentModel.value.cash!.isActive == true,
                           child: RadioListTile(
-                            value: Constant.paymentModel!.razorpay!.name.toString(),
+                            value: Constant.paymentModel!.cash!.name.toString(),
                             groupValue: controller.selectedPaymentMethod.value,
                             controlAffinity: ListTileControlAffinity.trailing,
                             contentPadding: EdgeInsets.zero,
@@ -193,12 +193,12 @@ class PaymentMethodView extends StatelessWidget {
                                       shape: BoxShape.circle,
                                       color: themeChange.isDarkTheme() ? AppThemeData.grey1000 : AppThemeData.grey50,
                                     ),
-                                    child: Image.asset(
-                                      "assets/images/ig_razorpay.png",
+                                    child: SvgPicture.asset(
+                                      "assets/icons/ic_cash.svg",
                                     )),
                                 const SizedBox(width: 12),
                                 TextCustom(
-                                  title: Constant.paymentModel!.razorpay!.name ?? "",
+                                  title: Constant.paymentModel!.cash!.name ?? "",
                                   fontSize: 16,
                                   fontFamily: FontFamily.medium,
                                   color: themeChange.isDarkTheme() ? AppThemeData.grey100 : AppThemeData.grey900,
@@ -206,44 +206,8 @@ class PaymentMethodView extends StatelessWidget {
                               ],
                             ),
                             onChanged: (value) {
-                              controller.selectedPaymentMethod.value = Constant.paymentModel!.razorpay!.name.toString();
-                              controller.orderModel.value.paymentType = Constant.paymentModel!.razorpay!.name;
-                            },
-                          ),
-                        ),
-                        Visibility(
-                          visible: controller.paymentModel.value.strip != null && controller.paymentModel.value.strip!.isActive == true,
-                          child: RadioListTile(
-                            value: Constant.paymentModel!.strip!.name.toString(),
-                            groupValue: controller.selectedPaymentMethod.value,
-                            controlAffinity: ListTileControlAffinity.trailing,
-                            contentPadding: EdgeInsets.zero,
-                            activeColor: AppThemeData.orange300,
-                            title: Row(
-                              children: [
-                                Container(
-                                    height: 46.h,
-                                    width: 46.w,
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: themeChange.isDarkTheme() ? AppThemeData.grey1000 : AppThemeData.grey50,
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/ig_stripe.png",
-                                    )),
-                                const SizedBox(width: 12),
-                                TextCustom(
-                                  title: Constant.paymentModel!.strip!.name ?? "",
-                                  fontSize: 16,
-                                  fontFamily: FontFamily.medium,
-                                  color: themeChange.isDarkTheme() ? AppThemeData.grey100 : AppThemeData.grey900,
-                                ),
-                              ],
-                            ),
-                            onChanged: (value) {
-                              controller.selectedPaymentMethod.value = Constant.paymentModel!.strip!.name.toString();
-                              controller.orderModel.value.paymentType = Constant.paymentModel!.strip!.name;
+                              controller.selectedPaymentMethod.value = Constant.paymentModel!.cash!.name.toString();
+                              controller.orderModel.value.paymentType = Constant.paymentModel!.cash!.name;
                             },
                           ),
                         ),
@@ -280,222 +244,6 @@ class PaymentMethodView extends StatelessWidget {
                             onChanged: (value) {
                               controller.selectedPaymentMethod.value = Constant.paymentModel!.paypal!.name.toString();
                               controller.orderModel.value.paymentType = Constant.paymentModel!.paypal!.name;
-                            },
-                          ),
-                        ),
-                        Visibility(
-                          visible: controller.paymentModel.value.payStack != null && controller.paymentModel.value.payStack!.isActive == true,
-                          child: RadioListTile(
-                            value: Constant.paymentModel!.payStack!.name.toString(),
-                            groupValue: controller.selectedPaymentMethod.value,
-                            controlAffinity: ListTileControlAffinity.trailing,
-                            contentPadding: EdgeInsets.zero,
-                            activeColor: AppThemeData.orange300,
-                            title: Row(
-                              children: [
-                                Container(
-                                    height: 46.h,
-                                    width: 46.w,
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: themeChange.isDarkTheme() ? AppThemeData.grey1000 : AppThemeData.grey50,
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/ig_paystack.png",
-                                    )),
-                                const SizedBox(width: 12),
-                                TextCustom(
-                                  title: Constant.paymentModel!.payStack!.name ?? "",
-                                  fontSize: 16,
-                                  fontFamily: FontFamily.medium,
-                                  color: themeChange.isDarkTheme() ? AppThemeData.grey100 : AppThemeData.grey900,
-                                ),
-                              ],
-                            ),
-                            onChanged: (value) {
-                              controller.selectedPaymentMethod.value = Constant.paymentModel!.payStack!.name.toString();
-                              controller.orderModel.value.paymentType = Constant.paymentModel!.payStack!.name;
-                            },
-                          ),
-                        ),
-                        Visibility(
-                          visible: controller.paymentModel.value.mercadoPago != null && controller.paymentModel.value.mercadoPago!.isActive == true,
-                          child: RadioListTile(
-                            value: Constant.paymentModel!.mercadoPago!.name.toString(),
-                            groupValue: controller.selectedPaymentMethod.value,
-                            controlAffinity: ListTileControlAffinity.trailing,
-                            contentPadding: EdgeInsets.zero,
-                            activeColor: AppThemeData.orange300,
-                            title: Row(
-                              children: [
-                                Container(
-                                    height: 46.h,
-                                    width: 46.w,
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: themeChange.isDarkTheme() ? AppThemeData.grey1000 : AppThemeData.grey50,
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/ig_marcadopago.png",
-                                    )),
-                                const SizedBox(width: 12),
-                                TextCustom(
-                                  title: Constant.paymentModel!.mercadoPago!.name ?? "",
-                                  fontSize: 16,
-                                  fontFamily: FontFamily.medium,
-                                  color: themeChange.isDarkTheme() ? AppThemeData.grey100 : AppThemeData.grey900,
-                                ),
-                              ],
-                            ),
-                            onChanged: (value) {
-                              controller.selectedPaymentMethod.value = Constant.paymentModel!.mercadoPago!.name.toString();
-                              controller.orderModel.value.paymentType = Constant.paymentModel!.mercadoPago!.name;
-                            },
-                          ),
-                        ),
-                        Visibility(
-                          visible: controller.paymentModel.value.payFast != null && controller.paymentModel.value.payFast!.isActive == true,
-                          child: RadioListTile(
-                            value: Constant.paymentModel!.payFast!.name.toString(),
-                            groupValue: controller.selectedPaymentMethod.value,
-                            controlAffinity: ListTileControlAffinity.trailing,
-                            contentPadding: EdgeInsets.zero,
-                            activeColor: AppThemeData.orange300,
-                            title: Row(
-                              children: [
-                                Container(
-                                    height: 46.h,
-                                    width: 46.w,
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: themeChange.isDarkTheme() ? AppThemeData.grey1000 : AppThemeData.grey50,
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/ig_payfast.png",
-                                    )),
-                                const SizedBox(width: 12),
-                                TextCustom(
-                                  title: Constant.paymentModel!.payFast!.name ?? "",
-                                  fontSize: 16,
-                                  fontFamily: FontFamily.medium,
-                                  color: themeChange.isDarkTheme() ? AppThemeData.grey100 : AppThemeData.grey900,
-                                ),
-                              ],
-                            ),
-                            onChanged: (value) {
-                              controller.selectedPaymentMethod.value = Constant.paymentModel!.payFast!.name.toString();
-                              controller.orderModel.value.paymentType = Constant.paymentModel!.payFast!.name;
-                            },
-                          ),
-                        ),
-                        Visibility(
-                          visible: controller.paymentModel.value.flutterWave != null && controller.paymentModel.value.flutterWave!.isActive == true,
-                          child: RadioListTile(
-                            value: Constant.paymentModel!.flutterWave!.name.toString(),
-                            groupValue: controller.selectedPaymentMethod.value,
-                            controlAffinity: ListTileControlAffinity.trailing,
-                            contentPadding: EdgeInsets.zero,
-                            activeColor: AppThemeData.orange300,
-                            title: Row(
-                              children: [
-                                Container(
-                                    height: 46.h,
-                                    width: 46.w,
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: themeChange.isDarkTheme() ? AppThemeData.grey1000 : AppThemeData.grey50,
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/ig_flutterwave.png",
-                                    )),
-                                const SizedBox(width: 12),
-                                TextCustom(
-                                  title: Constant.paymentModel!.flutterWave!.name ?? "",
-                                  fontSize: 16,
-                                  fontFamily: FontFamily.medium,
-                                  color: themeChange.isDarkTheme() ? AppThemeData.grey100 : AppThemeData.grey900,
-                                ),
-                              ],
-                            ),
-                            onChanged: (value) {
-                              controller.selectedPaymentMethod.value = Constant.paymentModel!.flutterWave!.name.toString();
-                              controller.orderModel.value.paymentType = Constant.paymentModel!.flutterWave!.name;
-                            },
-                          ),
-                        ),
-                        Visibility(
-                          visible: controller.paymentModel.value.midtrans != null && controller.paymentModel.value.midtrans!.isActive == true,
-                          child: RadioListTile(
-                            value: Constant.paymentModel!.midtrans!.name.toString(),
-                            groupValue: controller.selectedPaymentMethod.value,
-                            controlAffinity: ListTileControlAffinity.trailing,
-                            contentPadding: EdgeInsets.zero,
-                            activeColor: AppThemeData.orange300,
-                            title: Row(
-                              children: [
-                                Container(
-                                    height: 46.h,
-                                    width: 46.w,
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: themeChange.isDarkTheme() ? AppThemeData.grey1000 : AppThemeData.grey50,
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/ig_midtrans.png",
-                                    )),
-                                const SizedBox(width: 12),
-                                TextCustom(
-                                  title: Constant.paymentModel!.midtrans!.name ?? "",
-                                  fontSize: 16,
-                                  fontFamily: FontFamily.medium,
-                                  color: themeChange.isDarkTheme() ? AppThemeData.grey100 : AppThemeData.grey900,
-                                ),
-                              ],
-                            ),
-                            onChanged: (value) {
-                              controller.selectedPaymentMethod.value = Constant.paymentModel!.midtrans!.name.toString();
-                              controller.orderModel.value.paymentType = Constant.paymentModel!.midtrans!.name;
-                            },
-                          ),
-                        ),
-                        Visibility(
-                          visible: controller.paymentModel.value.xendit != null && controller.paymentModel.value.xendit!.isActive == true,
-                          child: RadioListTile(
-                            value: Constant.paymentModel!.xendit!.name.toString(),
-                            groupValue: controller.selectedPaymentMethod.value,
-                            controlAffinity: ListTileControlAffinity.trailing,
-                            contentPadding: EdgeInsets.zero,
-                            activeColor: AppThemeData.orange300,
-                            title: Row(
-                              children: [
-                                Container(
-                                    height: 46.h,
-                                    width: 46.w,
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: themeChange.isDarkTheme() ? AppThemeData.grey1000 : AppThemeData.grey50,
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/ig_xendit.png",
-                                    )),
-                                const SizedBox(width: 12),
-                                TextCustom(
-                                  title: Constant.paymentModel!.xendit!.name ?? "",
-                                  fontSize: 16,
-                                  fontFamily: FontFamily.medium,
-                                  color: themeChange.isDarkTheme() ? AppThemeData.grey100 : AppThemeData.grey900,
-                                ),
-                              ],
-                            ),
-                            onChanged: (value) {
-                              controller.selectedPaymentMethod.value = Constant.paymentModel!.xendit!.name.toString();
-                              controller.orderModel.value.paymentType = Constant.paymentModel!.xendit!.name;
                             },
                           ),
                         ),

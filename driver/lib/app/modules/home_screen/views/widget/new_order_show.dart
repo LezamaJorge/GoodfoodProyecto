@@ -114,14 +114,7 @@ class NewOrderWidget extends StatelessWidget {
                         title: "Accept in ${controller.formatSeconds(controller.remainingSeconds.value)}",
                         buttonTextColor: themeChange.isDarkTheme() ? AppThemeData.grey1000 : AppThemeData.grey1000,
                         onTap: () async {
-                          if (controller.orderModel.value.paymentStatus != true) {
-                            double orderAmount = double.tryParse(controller.orderModel.value.totalAmount!) ?? 0;
-                            double walletAmount = double.tryParse(Constant.driverUserModel!.walletAmount!) ?? 0;
-                            if (walletAmount < orderAmount) {
-                              return ShowToastDialog.showToast("Not enough balance in your wallet.Minimum amount required is not met. \$${orderAmount.toStringAsFixed(2)}.");
-                            }
-                          }
-
+                          // Validation removed so drivers can accept orders without wallet balance.
                           Map<String, dynamic> playLoad = <String, dynamic>{"orderId": controller.orderModel.value.id};
                           SendNotification.sendOneNotification(
                               isPayment: controller.orderModel.value.paymentStatus ?? false,

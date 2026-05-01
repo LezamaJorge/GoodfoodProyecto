@@ -544,6 +544,17 @@ class MyCartController extends GetxController {
   Future<void> payPalPayment({required String amount}) async {
     try {
       ShowToastDialog.closeLoader();
+      
+      // Conversión automática para Honduras (LPS a USD)
+      String paypalAmount = amount;
+      String paypalCurrency = currencyCode.value;
+      
+      if (paypalCurrency == "LPS" || paypalCurrency == "HNL") {
+        double amountInUsd = double.parse(amount) / 26.62;
+        paypalAmount = amountInUsd.toStringAsFixed(2);
+        paypalCurrency = "USD";
+      }
+
       await Get.to(() => PaypalPayment(
             onFinish: (result) {
               try {
@@ -555,7 +566,7 @@ class MyCartController extends GetxController {
                     isCredit: true,
                     transactionId: result['orderId'],
                     transactionLog: result,
-                    amount: amount,
+                    amount: amount, // Guardamos el monto original en LPS en el log
                   );
                 } else {
                   ShowToastDialog.showToast("Payment was canceled or failed.");
@@ -564,10 +575,10 @@ class MyCartController extends GetxController {
                 developer.log("Error processing PayPal payment: $e", stackTrace: stackTrace);
               }
             },
-            price: amount,
-            currencyCode: currencyCode.value,
-            title: "Add Money",
-            description: "Add Balance in Wallet",
+            price: paypalAmount,
+            currencyCode: paypalCurrency,
+            title: "Go4Food Order",
+            description: "Payment for food delivery",
           ));
     } catch (e, stackTrace) {
       developer.log("Error during PayPal payment: $e", stackTrace: stackTrace);

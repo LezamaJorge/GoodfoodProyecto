@@ -1,0 +1,1 @@
+ C:\\Users\\georg\\OneDrive\\Desktop\\ProyectoTrabajo\\Go4Food-3.1\\driver\\.dart_tool\\flutter_build\\05e8032e4f84c389d470df9a2cbe6f02\\native_assets.json: 

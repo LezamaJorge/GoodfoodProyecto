@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:developer';
+import 'dart:math' as math;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -708,5 +709,29 @@ class FireStoreUtils {
       developer.log('Error Driver list: $e', error: e, stackTrace: stack);
     }
     return driverList;
+  }
+
+  static Future<List<DriverUserModel>> getAllDrivers() async {
+    List<DriverUserModel> driverList = [];
+    try {
+      final querySnapshot = await fireStore
+          .collection(CollectionName.driver)
+          .where('isOnline', isEqualTo: true)
+          .where('active', isEqualTo: true)
+          .get();
+
+      for (var doc in querySnapshot.docs) {
+        driverList.add(DriverUserModel.fromJson(doc.data()));
+      }
+    } catch (e) {
+      developer.log("Error fetching all drivers: $e");
+    }
+    return driverList;
+  }
+
+  static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+    var p = 0.017453292519943295;
+    var a = 0.5 - math.cos((lat2 - lat1) * p) / 2 + math.cos(lat1 * p) * math.cos(lat2 * p) * (1 - math.cos((lon2 - lon1) * p)) / 2;
+    return 12742 * math.asin(math.sqrt(a));
   }
 }

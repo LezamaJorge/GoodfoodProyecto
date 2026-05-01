@@ -73,26 +73,33 @@ class HomeScreenController extends GetxController {
 
   Future<void> addPaymentInWallet() async {
     try {
-      double driverWalletAmount = double.parse(Constant.driverUserModel!.walletAmount!);
-      double orderTotalAmount = double.parse(orderModel.value.totalAmount!);
-      double orderSubTotalAmount = double.parse(orderModel.value.subTotal!);
-      int deliveryCharge = int.parse(orderModel.value.deliveryCharge!);
-      int discount = double.tryParse(orderModel.value.discount!)?.toInt() ?? 0;
-      double tax = double.parse(Constant.calculateTax(
-        amount: orderSubTotalAmount.toString(),
-        taxModel: orderModel.value.taxList![0],
-      ).toString());
+      double driverWalletAmount = double.parse(Constant.driverUserModel!.walletAmount ?? "0.0");
+      double orderTotalAmount = double.parse(orderModel.value.totalAmount ?? "0.0");
+      double orderSubTotalAmount = double.parse(orderModel.value.subTotal ?? "0.0");
+      double deliveryCharge = double.parse(orderModel.value.deliveryCharge ?? "0.0");
+      double discount = double.tryParse(orderModel.value.discount?.toString() ?? "0.0") ?? 0.0;
+      
+      double tax = 0.0;
+      if (orderModel.value.taxList != null && orderModel.value.taxList!.isNotEmpty) {
+        tax = double.parse(Constant.calculateTax(
+          amount: orderSubTotalAmount.toString(),
+          taxModel: orderModel.value.taxList![0],
+        ).toString());
+      }
 
       Map<String, dynamic> playLoad = {"orderId": orderModel.value.id};
+      
+      developer.log("Processing payment splitting. Delivery Charge: $deliveryCharge, Subtotal: $orderSubTotalAmount");
 
       if (orderModel.value.paymentType == "Cash on Delivery") {
+        // ... (resto del código de efectivo se mantiene con double.parse)
         double finalOwnerAmount = 0;
         double commissionBaseAmount = 0;
         double finalWalletAmount = driverWalletAmount - orderTotalAmount + deliveryCharge;
 
         Constant.driverUserModel!.walletAmount = finalWalletAmount.toStringAsFixed(2);
 
-        if (orderModel.value.coupon!.isVendorOffer == true) {
+        if (orderModel.value.coupon != null && orderModel.value.coupon!.isVendorOffer == true) {
           finalOwnerAmount = orderSubTotalAmount + tax - discount;
           commissionBaseAmount = orderSubTotalAmount - discount;
         } else {
@@ -109,7 +116,7 @@ class HomeScreenController extends GetxController {
           userId: FireStoreUtils.getCurrentUid(),
           isCredit: false,
           type: Constant.driver,
-          note: "Order Amount",
+          note: "Order Amount (COD)",
         );
 
         WalletTransactionModel transactionModelOfOwner = WalletTransactionModel(
@@ -121,7 +128,7 @@ class HomeScreenController extends GetxController {
           userId: ownerModel.value.id,
           isCredit: true,
           type: Constant.owner,
-          note: "Order Amount",
+          note: "Order Amount (COD)",
         );
 
         WalletTransactionModel transactionModelOfOrderAdminCommission = WalletTransactionModel(
@@ -141,7 +148,7 @@ class HomeScreenController extends GetxController {
 
         WalletTransactionModel transactionModelOfDeliveryChargeDriver = WalletTransactionModel(
           id: Constant.getUuid(),
-          amount: deliveryCharge.toString(),
+          amount: deliveryCharge.toStringAsFixed(2),
           createdDate: Timestamp.now(),
           paymentType: orderModel.value.paymentType,
           transactionId: orderModel.value.transactionPaymentId,
@@ -216,7 +223,7 @@ class HomeScreenController extends GetxController {
 
         Constant.driverUserModel!.walletAmount = finalDriverWalletAmount.toStringAsFixed(2);
 
-        if (orderModel.value.coupon!.isVendorOffer == true) {
+        if (orderModel.value.coupon != null && orderModel.value.coupon!.isVendorOffer == true) {
           finalOwnerAmount = orderSubTotalAmount + tax - discount;
           commissionBaseAmount = orderSubTotalAmount - discount;
         } else {
@@ -253,7 +260,7 @@ class HomeScreenController extends GetxController {
 
         WalletTransactionModel transactionModelOfDeliveryChargeDriver = WalletTransactionModel(
           id: Constant.getUuid(),
-          amount: deliveryCharge.toString(),
+          amount: deliveryCharge.toStringAsFixed(2),
           createdDate: Timestamp.now(),
           paymentType: orderModel.value.paymentType,
           transactionId: orderModel.value.transactionPaymentId,

@@ -9,7 +9,9 @@ import 'package:restaurant/app/models/wallet_transaction_model.dart';
 import 'package:restaurant/constant/collection_name.dart';
 import 'package:restaurant/constant/constant.dart';
 import 'package:restaurant/constant/order_status.dart';
+import 'package:restaurant/constant/send_notification.dart';
 import 'package:restaurant/utils/fire_store_utils.dart';
+import 'package:restaurant/app/models/driver_user_model.dart';
 import '../../../../constant/show_toast_dialogue.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -31,6 +33,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   @override
   void onInit() {
     getData();
+    listenForReassignments();
     tabController = TabController(length: 2, vsync: this);
     super.onInit();
   }
@@ -147,14 +150,16 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> addPaymentInWalletForRestaurant(OrderModel orderModel) async {
     try {
-      double orderSubTotalAmount = double.tryParse(orderModel.subTotal ?? "0") ?? 0;
-      int discount = double.tryParse(orderModel.discount ?? "0")?.toInt() ?? 0;
-      double tax = 0;
+      double orderSubTotalAmount = double.tryParse(orderModel.subTotal?.toString() ?? "0.0") ?? 0.0;
+      double discount = double.tryParse(orderModel.discount?.toString() ?? "0.0") ?? 0.0;
+      double tax = 0.0;
 
-      tax = double.parse(Constant.calculateTax(amount: orderSubTotalAmount.toString(), taxModel: orderModel.taxList![0]).toString());
+      if (orderModel.taxList != null && orderModel.taxList!.isNotEmpty) {
+        tax = double.parse(Constant.calculateTax(amount: orderSubTotalAmount.toString(), taxModel: orderModel.taxList![0]).toString());
+      }
 
-      double finalOwnerAmount = 0;
-      double commissionBaseAmount = 0;
+      double finalOwnerAmount = 0.0;
+      double commissionBaseAmount = 0.0;
 
       if (orderModel.coupon != null && orderModel.coupon!.isVendorOffer == true) {
         finalOwnerAmount = orderSubTotalAmount + tax - discount;
@@ -169,6 +174,8 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
         amount: commissionBaseAmount.toStringAsFixed(2),
         adminCommission: orderModel.adminCommission,
       ).toString();
+
+      developer.log("Restaurant Payment Processing: Subtotal: $orderSubTotalAmount, Final Owner: $finalOwnerAmount, Commission: $commissionAmount");
 
       /// --- ADMIN COMMISSION TRANSACTION ---
       WalletTransactionModel adminCommissionTransaction = WalletTransactionModel(
@@ -185,7 +192,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
       /// --- COMMISSION DEDUCTION ---
       bool? debitSuccess = await FireStoreUtils.setWalletTransaction(adminCommissionTransaction);
-      if (debitSuccess!) {
+      if (debitSuccess == true) {
         await FireStoreUtils.updateOwnerWalletDebited(
           amount: commissionAmount,
           ownerID: Constant.ownerModel!.id.toString(),
@@ -207,7 +214,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
         );
 
         bool? creditSuccess = await FireStoreUtils.setWalletTransaction(ownerTransaction);
-        if (creditSuccess!) {
+        if (creditSuccess == true) {
           await FireStoreUtils.updateOwnerWallet(
             amount: finalOwnerAmount.toStringAsFixed(2),
             ownerID: Constant.ownerModel!.id.toString(),
@@ -215,8 +222,111 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
         }
       }
     } catch (e, stacktrace) {
-      debugPrint("Error in addPaymentInWalletForRestaurant: $e");
-      debugPrint("Stacktrace: $stacktrace");
+      developer.log("Error in addPaymentInWalletForRestaurant: $e", stackTrace: stacktrace);
+    }
+  }
+
+  void listenForReassignments() {
+    FireStoreUtils.fireStore
+        .collection(CollectionName.orders)
+        .where('vendorId', isEqualTo: Constant.ownerModel!.vendorId)
+        .where('orderStatus', isEqualTo: OrderStatus.driverRejected)
+        .snapshots()
+        .listen((event) {
+      for (var doc in event.docs) {
+        OrderModel order = OrderModel.fromJson(doc.data());
+        developer.log("Detected rejected order ${order.id}. Re-assigning...");
+        assignIndependentDriver(order);
+      }
+    });
+  }
+
+  Future<void> assignIndependentDriver(OrderModel pendingOrder) async {
+    try {
+      ShowToastDialog.showLoader("Buscando repartidor cercano...".tr);
+
+      // 1. Obtener todos los repartidores disponibles
+      List<DriverUserModel> allDrivers = await FireStoreUtils.getAllDrivers();
+
+      if (allDrivers.isEmpty) {
+        ShowToastDialog.closeLoader();
+        ShowToastDialog.toast("No hay repartidores conectados en este momento.".tr);
+        return;
+      }
+
+      double? restaurantLat = pendingOrder.vendorAddress?.location?.latitude;
+      double? restaurantLng = pendingOrder.vendorAddress?.location?.longitude;
+
+      if (restaurantLat == null || restaurantLng == null) {
+        ShowToastDialog.closeLoader();
+        ShowToastDialog.toast("Error: No se encontró la ubicación del restaurante.".tr);
+        return;
+      }
+
+      DriverUserModel? nearestDriver;
+      double shortestDistance = double.maxFinite;
+
+      for (var driver in allDrivers) {
+        // Excluir si ya rechazó
+        if (pendingOrder.rejectedDriverIds != null && pendingOrder.rejectedDriverIds!.contains(driver.driverId)) {
+          continue;
+        }
+
+        double? driverLat = driver.location?.latitude;
+        double? driverLng = driver.location?.longitude;
+
+        if (driverLat != null && driverLng != null) {
+          double distance = FireStoreUtils.calculateDistance(restaurantLat, restaurantLng, driverLat, driverLng);
+          if (distance < shortestDistance) {
+            shortestDistance = distance;
+            nearestDriver = driver;
+          }
+        }
+      }
+
+      if (nearestDriver == null) {
+        ShowToastDialog.closeLoader();
+        ShowToastDialog.toast("No se encontraron repartidores elegibles cerca.".tr);
+        return;
+      }
+
+      // 2. Asignar el pedido al conductor
+      pendingOrder.driverId = nearestDriver.driverId;
+      pendingOrder.orderStatus = OrderStatus.driverAssigned;
+      pendingOrder.assignedAt = Timestamp.now();
+      pendingOrder.foodIsReadyToPickup = false;
+      pendingOrder.preparationTime = minutes.value.toString();
+
+      await FireStoreUtils.updateOrder(pendingOrder);
+
+      // 3. Actualizar el estado del conductor
+      nearestDriver.orderId = pendingOrder.id;
+      nearestDriver.status = "busy";
+      await FireStoreUtils.updateDriver(nearestDriver);
+
+      // 4. Enviar notificación (En un try-catch separado para que no bloquee la asignación)
+      try {
+        Map<String, dynamic> playLoad = <String, dynamic>{"orderId": pendingOrder.id};
+        await SendNotification.sendOneNotification(
+          token: nearestDriver.fcmToken.toString(),
+          title: 'New Order Received'.tr,
+          body: 'You have a new order assignment #'.tr + pendingOrder.id.toString().substring(0, 4),
+          payload: playLoad,
+          type: "order",
+          orderId: pendingOrder.id,
+          driverId: nearestDriver.driverId,
+          isNewOrder: true,
+        );
+      } catch (e) {
+        developer.log("Notification failed but order was assigned: $e");
+      }
+
+      ShowToastDialog.closeLoader();
+      ShowToastDialog.toast("Repartidor asignado correctamente.".tr);
+    } catch (e) {
+      ShowToastDialog.closeLoader();
+      developer.log("Error assigning independent driver: $e");
+      ShowToastDialog.toast("Error al asignar repartidor automático.".tr);
     }
   }
 

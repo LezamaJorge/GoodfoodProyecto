@@ -173,9 +173,32 @@ class RestaurantDetailsController extends GetxController {
   }
 
   void calculationTotalEarning() {
+    totalRestaurantEarnings.value = 0.0;
     for (var booking in allOrderList) {
-      if (booking.orderStatus == 'order_complete') {
-        totalRestaurantEarnings.value += Constant.calculateFinalAmount(booking);
+      if (booking.orderStatus == OrderStatus.orderComplete) {
+        double subTotal = double.parse(booking.subTotal ?? '0.0');
+        double discount = double.parse(booking.discount ?? '0.0');
+        double taxAmount = 0.0;
+        
+        for (var element in (booking.taxList ?? [])) {
+          taxAmount += Constant.calculateTax(
+            amount: (subTotal - discount).toString(), 
+            taxModel: element
+          );
+        }
+
+        double commissionBaseAmount = subTotal;
+        if (booking.coupon != null && booking.coupon!.isVendorOffer == true) {
+          commissionBaseAmount = subTotal - discount;
+        }
+
+        double adminCommission = Constant.calculateAdminCommission(
+          amount: commissionBaseAmount.toStringAsFixed(2),
+          adminCommission: booking.adminCommission,
+        );
+
+        // Ganancia Real = Subtotal - Descuento + Impuestos - Comisión del Admin
+        totalRestaurantEarnings.value += (subTotal - discount + taxAmount - adminCommission);
       }
     }
   }

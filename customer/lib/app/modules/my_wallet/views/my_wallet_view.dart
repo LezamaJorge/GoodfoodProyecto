@@ -19,6 +19,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 import '../controllers/my_wallet_controller.dart';
 import 'widgets/add_money_dialog_view.dart';
@@ -118,6 +120,38 @@ class MyWalletView extends StatelessWidget {
                                   }
                                 },
                                 size: Size(326.w, 50.h)),
+                            spaceH(height: 12),
+                            OutlinedButton(
+                                onPressed: () async {
+                                  String url = "https://wa.me/${Constant.phoneNumber}?text=${Uri.encodeComponent("Hola Go4Food, deseo recargar mi billetera. Mi correo es: ${controller.userModel.value.email}")}";
+                                  if (await canLaunchUrl(Uri.parse(url))) {
+                                    await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+                                  } else {
+                                    Get.snackbar("Error", "No se pudo abrir WhatsApp");
+                                  }
+                                },
+
+                                style: OutlinedButton.styleFrom(
+                                  fixedSize: Size(326.w, 50.h),
+                                  side: BorderSide(color: AppThemeData.orange300, width: 1),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.message_outlined, color: AppThemeData.orange300, size: 20),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      "Recargar vía WhatsApp".tr,
+                                      style: TextStyle(
+                                        color: AppThemeData.orange300,
+                                        fontFamily: FontFamily.medium,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                )),
+
                           ],
                         ),
                       )

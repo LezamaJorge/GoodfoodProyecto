@@ -34,7 +34,7 @@ class FireStoreUtils {
   static FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
   static String getCurrentUid() {
-    return FirebaseAuth.instance.currentUser!.uid;
+    return FirebaseAuth.instance.currentUser?.uid ?? "";
   }
 
   static Future<bool> userExistOrNot(String uid) async {
@@ -413,7 +413,6 @@ class FireStoreUtils {
           .collection(CollectionName.orders)
           .where('driverId', isEqualTo: FireStoreUtils.getCurrentUid())
           .where('orderStatus', isEqualTo: 'order_complete')
-          .orderBy('createdAt', descending: true)
           .get();
 
       for (var element in querySnapshot.docs) {
@@ -433,7 +432,7 @@ class FireStoreUtils {
 
     try {
       final querySnapshot =
-          await fireStore.collection(CollectionName.orders).where('driverId', isEqualTo: FireStoreUtils.getCurrentUid()).orderBy('createdAt', descending: true).get();
+          await fireStore.collection(CollectionName.orders).where('driverId', isEqualTo: FireStoreUtils.getCurrentUid()).get();
 
       for (var element in querySnapshot.docs) {
         OrderModel orderModel = OrderModel.fromJson(element.data());

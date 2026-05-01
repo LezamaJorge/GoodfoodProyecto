@@ -207,264 +207,26 @@ class AddMoneyView extends StatelessWidget {
                                 ),
                               ),
                               Visibility(
-                                visible: controller.paymentModel.value.strip != null && controller.paymentModel.value.strip!.isActive == true,
+                                visible: controller.paymentModel.value.paypal != null && controller.paymentModel.value.paypal!.isActive == true,
                                 child: Column(
                                   children: [
                                     Container(
                                       transform: Matrix4.translationValues(0.0, -10.0, 0.0),
                                       child: RadioListTile(
-                                        value: Constant.paymentModel!.strip!.name.toString(),
+                                        value: Constant.paymentModel!.paypal!.name.toString(),
                                         controlAffinity: ListTileControlAffinity.trailing,
                                         contentPadding: EdgeInsets.zero,
                                         activeColor: AppThemeData.primary300,
                                         title: Row(
                                           children: [
                                             Image.asset(
-                                              "assets/images/ig_stripe.png",
+                                              "assets/images/ig_paypal.png",
                                               height: 50,
                                               width: 50,
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
-                                              Constant.paymentModel!.strip!.name ?? "",
-                                              style: TextStyle(
-                                                color: themeChange.isDarkTheme() ? AppThemeData.primaryWhite : AppThemeData.primaryBlack,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Visibility(
-                                visible: controller.paymentModel.value.razorpay != null && controller.paymentModel.value.razorpay!.isActive == true,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-                                      child: RadioListTile(
-                                        value: Constant.paymentModel!.razorpay!.name.toString(),
-                                        controlAffinity: ListTileControlAffinity.trailing,
-                                        contentPadding: EdgeInsets.zero,
-                                        activeColor: AppThemeData.primary300,
-                                        title: Row(
-                                          children: [
-                                            Image.asset(
-                                              "assets/images/ig_razorpay.png",
-                                              height: 50,
-                                              width: 50,
-                                            ),
-                                            const SizedBox(width: 12),
-                                            Text(
-                                              Constant.paymentModel!.razorpay!.name ?? "",
-                                              style: TextStyle(
-                                                color: themeChange.isDarkTheme() ? AppThemeData.primaryWhite : AppThemeData.primaryBlack,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Visibility(
-                                visible: controller.paymentModel.value.flutterWave != null && controller.paymentModel.value.flutterWave!.isActive == true,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-                                      child: RadioListTile(
-                                        value: Constant.paymentModel!.flutterWave!.name.toString(),
-                                        controlAffinity: ListTileControlAffinity.trailing,
-                                        contentPadding: EdgeInsets.zero,
-                                        activeColor: AppThemeData.primary300,
-                                        title: Row(
-                                          children: [
-                                            Image.asset(
-                                              "assets/images/ig_flutterwave.png",
-                                              height: 50,
-                                              width: 50,
-                                            ),
-                                            const SizedBox(width: 12),
-                                            Text(
-                                              Constant.paymentModel!.flutterWave!.name ?? "",
-                                              style: TextStyle(
-                                                color: themeChange.isDarkTheme() ? AppThemeData.primaryWhite : AppThemeData.primaryBlack,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Visibility(
-                                visible: controller.paymentModel.value.payStack != null && controller.paymentModel.value.payStack!.isActive == true,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-                                      child: RadioListTile(
-                                        value: Constant.paymentModel!.payStack!.name.toString(),
-                                        controlAffinity: ListTileControlAffinity.trailing,
-                                        contentPadding: EdgeInsets.zero,
-                                        activeColor: AppThemeData.primary300,
-                                        title: Row(
-                                          children: [
-                                            Image.asset(
-                                              "assets/images/ig_paystack.png",
-                                              height: 50,
-                                              width: 50,
-                                            ),
-                                            const SizedBox(width: 12),
-                                            Text(
-                                              Constant.paymentModel!.payStack!.name ?? "",
-                                              style: TextStyle(
-                                                color: themeChange.isDarkTheme() ? AppThemeData.primaryWhite : AppThemeData.primaryBlack,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Visibility(
-                                visible: controller.paymentModel.value.mercadoPago != null && controller.paymentModel.value.mercadoPago!.isActive == true,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-                                      child: RadioListTile(
-                                        value: Constant.paymentModel!.mercadoPago!.name.toString(),
-                                        controlAffinity: ListTileControlAffinity.trailing,
-                                        contentPadding: EdgeInsets.zero,
-                                        activeColor: AppThemeData.primary300,
-                                        title: Row(
-                                          children: [
-                                            Image.asset(
-                                              "assets/images/ig_marcadopago.png",
-                                              height: 50,
-                                              width: 50,
-                                            ),
-                                            const SizedBox(width: 12),
-                                            Text(
-                                              Constant.paymentModel!.mercadoPago!.name ?? "",
-                                              style: TextStyle(
-                                                color: themeChange.isDarkTheme() ? AppThemeData.primaryWhite : AppThemeData.primaryBlack,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Visibility(
-                                visible: controller.paymentModel.value.payFast != null && controller.paymentModel.value.payFast!.isActive == true,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-                                      child: RadioListTile(
-                                        value: Constant.paymentModel!.payFast!.name.toString(),
-                                        controlAffinity: ListTileControlAffinity.trailing,
-                                        contentPadding: EdgeInsets.zero,
-                                        activeColor: AppThemeData.primary300,
-                                        title: Row(
-                                          children: [
-                                            Image.asset(
-                                              "assets/images/ig_payfast.png",
-                                              height: 50,
-                                              width: 50,
-                                            ),
-                                            const SizedBox(width: 12),
-                                            Text(
-                                              Constant.paymentModel!.payFast!.name ?? "",
-                                              style: TextStyle(
-                                                color: themeChange.isDarkTheme() ? AppThemeData.primaryWhite : AppThemeData.primaryBlack,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Visibility(
-                                visible: controller.paymentModel.value.midtrans != null && controller.paymentModel.value.midtrans!.isActive == true,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-                                      child: RadioListTile(
-                                        value: Constant.paymentModel!.midtrans!.name.toString(),
-                                        controlAffinity: ListTileControlAffinity.trailing,
-                                        contentPadding: EdgeInsets.zero,
-                                        activeColor: AppThemeData.primary300,
-                                        title: Row(
-                                          children: [
-                                            Image.asset(
-                                              "assets/images/ig_midtrans.png",
-                                              height: 50,
-                                              width: 50,
-                                            ),
-                                            const SizedBox(width: 12),
-                                            Text(
-                                              Constant.paymentModel!.midtrans!.name ?? "",
-                                              style: TextStyle(
-                                                color: themeChange.isDarkTheme() ? AppThemeData.primaryWhite : AppThemeData.primaryBlack,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Visibility(
-                                visible: controller.paymentModel.value.xendit != null && controller.paymentModel.value.xendit!.isActive == true,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-                                      child: RadioListTile(
-                                        value: Constant.paymentModel!.xendit!.name.toString(),
-                                        controlAffinity: ListTileControlAffinity.trailing,
-                                        contentPadding: EdgeInsets.zero,
-                                        activeColor: AppThemeData.primary300,
-                                        title: Row(
-                                          children: [
-                                            Image.asset(
-                                              "assets/images/ig_xendit.png",
-                                              height: 50,
-                                              width: 50,
-                                            ),
-                                            const SizedBox(width: 12),
-                                            Text(
-                                              Constant.paymentModel!.xendit!.name ?? "",
+                                              Constant.paymentModel!.paypal!.name ?? "",
                                               style: TextStyle(
                                                 color: themeChange.isDarkTheme() ? AppThemeData.primaryWhite : AppThemeData.primaryBlack,
                                                 fontSize: 16,

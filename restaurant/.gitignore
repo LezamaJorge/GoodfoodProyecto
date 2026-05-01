@@ -50,3 +50,5 @@ build_old/
 **/build/
 **/build_old/
 **/.transforms/
+dart_tool_old/
+**/dart_tool_old/

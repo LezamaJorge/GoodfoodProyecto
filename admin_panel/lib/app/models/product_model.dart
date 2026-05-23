@@ -2,7 +2,7 @@
 
 import 'package:admin_panel/app/models/addons_model.dart';
 import 'package:admin_panel/app/models/category_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'sub_category_model.dart';
 import 'variation_model.dart';
 
@@ -138,3 +138,4 @@ class ProductModel {
     return data;
   }
 }
+

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:admin_panel/app/constant/collection_name.dart';
 import 'package:admin_panel/app/constant/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'package:admin_panel/app/constant/show_toast.dart';
 import 'package:admin_panel/app/utils/fire_store_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +12,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -296,3 +297,4 @@ class OwnerController extends GetxController {
     isEditing.value = false;
   }
 }
+

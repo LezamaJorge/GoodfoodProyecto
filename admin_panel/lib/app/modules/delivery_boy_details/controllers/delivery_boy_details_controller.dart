@@ -9,7 +9,7 @@ import 'package:admin_panel/app/models/order_model.dart';
 import 'package:admin_panel/app/models/wallet_transaction_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import '../../../constant/collection_name.dart';
 import '../../../constant/constants.dart';
 import '../../../models/payout_request_model.dart';
@@ -234,3 +234,4 @@ class DeliveryBoyDetailsController extends GetxController {
     isLoading.value = false;
   }
 }
+

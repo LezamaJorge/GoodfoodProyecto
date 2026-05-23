@@ -4,7 +4,7 @@ import 'package:admin_panel/app/models/admin_commission_model.dart';
 import 'package:admin_panel/app/models/cart_model.dart';
 import 'package:admin_panel/app/models/coupon_model.dart';
 import 'package:admin_panel/app/models/tax_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 
 class OrderModel {
   String? id;
@@ -149,3 +149,4 @@ class OrderModel {
     return data;
   }
 }
+

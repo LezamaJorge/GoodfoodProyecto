@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:admin_panel/app/models/location_lat_lng.dart';
 import 'package:admin_panel/app/models/positions.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 
 class DriverUserModel {
   String? driverId;
@@ -173,3 +173,4 @@ class DriverVehicleDetails {
         "isVerified": isVerified ?? false,
       };
 }
+

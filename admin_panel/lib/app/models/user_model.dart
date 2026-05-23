@@ -1,7 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:admin_panel/app/models/add_address_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 
 class UserModel {
   String? firstName;
@@ -95,3 +95,4 @@ class UserModel {
     return data;
   }
 }
+

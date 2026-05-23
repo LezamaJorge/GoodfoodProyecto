@@ -12,7 +12,7 @@ import 'package:admin_panel/app/models/user_model.dart';
 import 'package:admin_panel/app/pdf_generate/generate_pdf_customer.dart';
 import 'package:admin_panel/app/utils/fire_store_utils.dart';
 import 'package:admin_panel/app/utils/utils.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -362,3 +362,4 @@ class CustomerScreenController extends GetxController {
     isEditing.value = false;
   }
 }
+

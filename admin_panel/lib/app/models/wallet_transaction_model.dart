@@ -1,6 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 
 import 'admin_commission_model.dart';
 
@@ -46,3 +46,4 @@ class WalletTransactionModel {
     return data;
   }
 }
+

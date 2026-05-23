@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               splitScreenMode: true,
               builder: (context, child) {
                 return GetMaterialApp(
-                    title: 'Go4Food Customer'.tr,
+                    title: 'Atime'.tr,
                     debugShowCheckedModeBanner: false,
                     theme: Styles.themeData(
                         themeChangeProvider.darkTheme == 0

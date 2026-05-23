@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
                   locale: LocalizationService.locale,
                   fallbackLocale: LocalizationService.locale,
                   translations: LocalizationService(),
-                  title: "Go4Food",
+                  title: "Atime",
                   builder: EasyLoading.init(),
                   initialRoute: AppPages.INITIAL,
                   getPages: AppPages.routes,

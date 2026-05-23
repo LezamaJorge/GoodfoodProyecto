@@ -30,7 +30,7 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:enableOnBackInvokedCallback="false"
-        android:label="Go4Food Driver"
+        android:label="Atime Repartidor"
         android:usesCleartextTraffic="true"
         android:foregroundServiceType="location"
         android:requestLegacyExternalStorage="true"

@@ -12,7 +12,7 @@ import 'package:admin_panel/app/models/cart_model.dart';
 import 'package:admin_panel/app/models/user_model.dart';
 import 'package:admin_panel/app/models/language_model.dart';
 import 'package:admin_panel/app/utils/fire_store_utils.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -299,3 +299,4 @@ class SalesStatistic {
   final double y;
   final Color? color;
 }
+

@@ -3,7 +3,7 @@
 
 import 'package:admin_panel/app/models/coupon_model.dart';
 import 'package:admin_panel/app/utils/fire_store_utils.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -133,3 +133,4 @@ class CouponScreenController extends GetxController {
     isEditing.value = false;
   }
 }
+

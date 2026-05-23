@@ -9,7 +9,7 @@ import 'package:admin_panel/app/models/verify_driver_model.dart';
 import 'package:admin_panel/app/models/verify_restaurant_model.dart';
 import 'package:admin_panel/app/pdf_generate/generate_pdf_deliveryboy.dart';
 import 'package:admin_panel/app/utils/fire_store_utils.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -402,3 +402,4 @@ class DeliveryBoyController extends GetxController {
     verifyDocumentList.refresh();
   }
 }
+

@@ -1,6 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 
 class WithdrawModel {
   String? id;
@@ -123,3 +123,4 @@ class BankDetailsModel {
     return data;
   }
 }
+

@@ -4,7 +4,7 @@
 // import 'package:admin_panel/app/models/vendor_model.dart';
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 // import '../../../constant/constants.dart';
 // import '../../../constant/show_toast.dart';
 // import '../../../models/wallet_transaction_model.dart';
@@ -93,7 +93,7 @@ import 'package:admin_panel/app/models/owner_model.dart';
 import 'package:admin_panel/app/models/vendor_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import '../../../constant/constants.dart';
 import '../../../constant/show_toast.dart';
 import '../../../models/wallet_transaction_model.dart';
@@ -192,3 +192,4 @@ class OwnerDetailController extends GetxController {
     });
   }
 }
+

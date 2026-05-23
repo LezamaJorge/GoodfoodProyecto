@@ -2,7 +2,7 @@
 
 import 'package:admin_panel/app/models/add_address_model.dart';
 import 'package:admin_panel/app/models/positions.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 
 class VendorModel {
   String? id;
@@ -145,4 +145,5 @@ class OpeningHoursModel {
     return data;
   }
 }
+
 

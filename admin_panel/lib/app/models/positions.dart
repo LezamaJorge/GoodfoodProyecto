@@ -1,6 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 
 class Positions {
   String? geohash;
@@ -20,3 +20,4 @@ class Positions {
     return data;
   }
 }
+

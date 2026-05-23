@@ -5,7 +5,7 @@ import 'package:admin_panel/app/constant/constants.dart';
 import 'package:admin_panel/app/constant/show_toast.dart';
 import 'package:admin_panel/app/models/documents_model.dart';
 import 'package:admin_panel/app/utils/fire_store_utils.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -83,3 +83,4 @@ class DocumentScreenController extends GetxController {
     isLoading = false.obs;
   }
 }
+

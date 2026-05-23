@@ -7,7 +7,7 @@ import 'package:admin_panel/app/models/admin_model.dart';
 import 'package:admin_panel/app/routes/app_pages.dart';
 import 'package:admin_panel/app/utils/fire_store_utils.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -113,3 +113,4 @@ class LoginPageController extends GetxController {
     await Constant.getLanguageData();
   }
 }
+

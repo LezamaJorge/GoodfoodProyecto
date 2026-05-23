@@ -17,7 +17,7 @@
 
 
     <application
-        android:label="Go4Food Restaurant"
+        android:label="Atime Restaurante"
         tools:replace="android:label"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

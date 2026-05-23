@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:admin_panel/app/constant/constants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 
 
 class VerifyUserModel {
@@ -55,3 +55,4 @@ class VerifyUserModel {
     "reason": reason ?? "",
   };
 }
+

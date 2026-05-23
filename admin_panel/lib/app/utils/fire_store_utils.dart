@@ -34,7 +34,7 @@ import 'package:admin_panel/app/models/payout_request_model.dart';
 import 'package:admin_panel/app/models/verify_restaurant_model.dart';
 import 'package:admin_panel/app/models/verify_driver_model.dart';
 import 'package:admin_panel/app/models/wallet_transaction_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -2992,3 +2992,4 @@ class FireStoreUtils {
     return onboardingModel;
   }
 }
+

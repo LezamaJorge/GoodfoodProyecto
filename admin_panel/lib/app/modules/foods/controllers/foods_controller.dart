@@ -12,7 +12,7 @@ import 'package:admin_panel/app/models/vendor_model.dart';
 import 'package:admin_panel/app/models/sub_category_model.dart';
 import 'package:admin_panel/app/models/variation_model.dart';
 import 'package:admin_panel/app/utils/fire_store_utils.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -338,3 +338,4 @@ class FoodsController extends GetxController {
     isEditing.value = false;
   }
 }
+

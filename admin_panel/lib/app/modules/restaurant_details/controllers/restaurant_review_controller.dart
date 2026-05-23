@@ -8,7 +8,7 @@ import 'package:admin_panel/app/models/vendor_model.dart';
 import 'package:admin_panel/app/models/review_model.dart';
 import 'package:admin_panel/app/modules/restaurant_details/controllers/restaurant_details_controller.dart';
 import 'package:admin_panel/app/utils/fire_store_utils.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'package:get/get.dart';
 
 class RestaurantReviewController extends GetxController {
@@ -130,3 +130,4 @@ class RestaurantReviewController extends GetxController {
     isLoading.value = false;
   }
 }
+

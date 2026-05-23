@@ -22,7 +22,7 @@ import 'package:admin_panel/app/utils/dark_theme_provider.dart';
 import 'package:admin_panel/app/utils/fire_store_utils.dart';
 import 'package:admin_panel/widget/container_custom.dart';
 import 'package:admin_panel/widget/global_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -671,3 +671,4 @@ class StatusDetails {
 
   StatusDetails({required this.text, required this.textColor, required this.backgroundColor});
 }
+

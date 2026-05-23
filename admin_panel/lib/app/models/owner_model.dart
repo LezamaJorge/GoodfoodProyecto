@@ -1,7 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:admin_panel/app/models/verify_restaurant_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 
 class OwnerModel {
   String? id;
@@ -105,3 +105,4 @@ class OwnerModel {
     return data;
   }
 }
+
